@@ -8,7 +8,7 @@ import javax.security.auth.login.LoginException;
 public class ProcessadorArquivo {
 	
 	@SuppressWarnings("resource")
-	public static Map<String, String> processar(String arquivo) throws LoginException {
+	public static Map<String, String> processar(String arquivo) throws LeituraArquivoException {
 		
 		Map<String, String> mapDados = new HashMap<>();
 		File file = null;
@@ -18,23 +18,23 @@ public class ProcessadorArquivo {
 			file = new File(arquivo);
 			sc = new Scanner(file);
 		} catch (Exception e) {
-			throw new LoginException("Erro ao abrir o arquivo: \n" + e);
+			throw new LeituraArquivoException("Erro ao abrir o arquivo: \n" + e);
 		} 
 		
 		if (!sc.hasNextLine()) {
-			throw new LoginException("Arquivo Vazio.");
+			throw new LeituraArquivoException("Arquivo Vazio.");
 		}
 		
 		while (sc.hasNextLine()) {
 			String s = sc.nextLine();
 			if (!s.contains("->")){
-				throw new LoginException("Formato Inválido.");
+				throw new LeituraArquivoException("Formato Inválido.");
 			} else { 
 				
 				String[] palavras = s.split("->");
 				
 				if (palavras.length > 2) {
-					throw new LoginException("Formato Inválido.");
+					throw new LeituraArquivoException("Formato Inválido.");
 				}
 				
 				mapDados.put(palavras[0], palavras[1]);
