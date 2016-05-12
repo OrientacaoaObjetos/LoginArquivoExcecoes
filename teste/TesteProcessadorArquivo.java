@@ -17,6 +17,7 @@ public class TesteProcessadorArquivo {
 	public void arquivoInexistente(){
 		try {
 			ProcessadorArquivo.processar("dados1.txt");
+			
 			fail();
 		} catch (LeituraArquivoException e) {
 			assertTrue(e.getMessage().startsWith("Erro ao abrir o arquivo"));
